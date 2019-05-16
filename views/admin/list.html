@@ -1,0 +1,604 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>控制台 - Bootstrap后台管理系统模版Ace下载</title>
+		<meta name="keywords" content="Bootstrap模版,Bootstrap模版下载,Bootstrap教程,Bootstrap中文" />
+		<meta name="description" content="站长素材提供Bootstrap模版,Bootstrap教程,Bootstrap中文翻译等相关Bootstrap插件下载" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- basic styles -->
+		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+
+		<!-- page specific plugin styles -->
+
+		<!-- fonts -->
+
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="assets/css/ace.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- ace settings handler -->
+
+		<script src="assets/js/ace-extra.min.js"></script>
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="navbar navbar-default" id="navbar">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<div class="navbar-header pull-left">
+					<a href="#" class="navbar-brand">
+						<small>
+							<i class="icon-leaf"></i>
+							CMS后台管理系统
+						</small>
+					</a><!-- /.brand -->
+				</div><!-- /.navbar-header -->
+
+				<div class="navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+								<span class="user-info">
+									<small>欢迎光临,</small>
+									Jason
+								</span>
+
+								<i class="icon-caret-down"></i>
+							</a>
+
+							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<li>
+									<a href="#">
+										<i class="icon-cog"></i>
+										设置
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<i class="icon-user"></i>
+										个人资料
+									</a>
+								</li>
+
+								<li class="divider"></li>
+
+								<li>
+									<a href="#">
+										<i class="icon-off"></i>
+										退出
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul><!-- /.ace-nav -->
+				</div><!-- /.navbar-header -->
+			</div><!-- /.container -->
+		</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				<div class="sidebar" id="sidebar">
+					<script type="text/javascript">
+						try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+					</script>
+
+					<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+						<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+							<button class="btn btn-success">
+								<i class="icon-signal"></i>
+							</button>
+
+							<button class="btn btn-info">
+								<i class="icon-pencil"></i>
+							</button>
+
+							<button class="btn btn-warning">
+								<i class="icon-group"></i>
+							</button>
+
+							<button class="btn btn-danger">
+								<i class="icon-cogs"></i>
+							</button>
+						</div>
+
+						<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+							<span class="btn btn-success"></span>
+
+							<span class="btn btn-info"></span>
+
+							<span class="btn btn-warning"></span>
+
+							<span class="btn btn-danger"></span>
+						</div>
+					</div><!-- #sidebar-shortcuts -->
+
+					<ul class="nav nav-list">
+						<li class="active">
+							<a href="index.html">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text"> 控制台 </span>
+							</a>
+						</li>
+
+						
+
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-user-md"></i>
+								<span class="menu-text"> 管理员管理 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li>
+									<a href="elements.html">
+										<i class="icon-double-angle-right"></i>
+										管理员列表
+									</a>
+								</li>
+
+								<li>
+									<a href="buttons.html">
+										<i class="icon-double-angle-right"></i>
+										增加管理员
+									</a>
+								</li>
+
+								
+							</ul>
+						</li>
+
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-list"></i>
+								<span class="menu-text"> 分类管理 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li>
+									<a href="tables.html">
+										<i class="icon-double-angle-right"></i>
+										分类列表
+									</a>
+								</li>
+
+								<li>
+									<a href="jqgrid.html">
+										<i class="icon-double-angle-right"></i>
+										增加分类
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-edit"></i>
+								<span class="menu-text"> 内容管理 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li>
+									<a href="form-elements.html">
+										<i class="icon-double-angle-right"></i>
+										内容列表
+									</a>
+								</li>
+
+								<li>
+									<a href="form-wizard.html">
+										<i class="icon-double-angle-right"></i>
+									 	增加内容
+									</a>
+								</li>
+								
+							</ul>
+						</li>
+
+						
+
+						
+
+
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-picture"></i>
+								<span class="menu-text"> 轮播图管理 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li>
+									<a href="#">
+										<i class="icon-double-angle-right"></i>
+										轮播图列表
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<i class="icon-double-angle-right"></i>
+										增加轮播图
+									</a>
+								</li>
+
+								
+							</ul>
+						</li>
+
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-paperclip"></i>
+
+								<span class="menu-text">
+									友情链接管理
+									<span class="badge badge-primary ">5</span>
+								</span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li>
+									<a href="#">
+										<i class="icon-double-angle-right"></i>
+										友情链接列表
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<i class="icon-double-angle-right"></i>
+										增加友情链接
+									</a>
+								</li>							
+							</ul>
+
+							
+						</li>
+
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-list-alt"></i>
+
+								<span class="menu-text">
+									导航管理
+									<span class="badge badge-primary ">5</span>
+								</span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li>
+									<a href="#">
+										<i class="icon-double-angle-right"></i>
+										增加导航
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="icon-double-angle-right"></i>
+										导航列表
+									</a>
+								</li>							
+							</ul>
+
+							
+						</li>
+
+						
+
+						<li>
+							<a href="index.html">
+								<i class="icon-cog"></i>
+								<span class="menu-text"> 系统设置 </span>
+							</a>
+						</li>
+
+					</ul><!-- /.nav-list -->
+
+					<div class="sidebar-collapse" id="sidebar-collapse">
+						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+					</div>
+
+					<script type="text/javascript">
+						try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+					</script>
+				</div>
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+							<li class="active">控制台</li>
+						</ul><!-- .breadcrumb -->
+
+						<div class="nav-search" id="nav-search">
+							<form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="icon-search nav-search-icon"></i>
+								</span>
+							</form>
+						</div><!-- #nav-search -->
+					</div>
+
+					<div class="page-content">
+
+						<div class="page-header">
+							<h1>
+								列表								
+							</h1>
+						</div><!-- /.page-header -->
+
+
+
+						<!--表格-->
+
+						<div class="table-responsive">
+							<table id="sample-table-1" class="table table-striped table-bordered table-hover center">
+								<thead>
+									<tr>
+										<th class="center">
+											<label>
+												<input type="checkbox" class="ace">
+												<span class="lbl"></span>
+											</label>
+										</th>
+										<th class="center">标题</th>
+										<th class="center">分类</th>
+										<th class="hidden-480 center">点击量</th>
+
+										<th class="center">
+											<i class="icon-time bigger-110 hidden-480"></i>
+											增加时间
+										</th>
+										<th class="center">状态</th>
+
+										<th width="80px;" class="center">操作</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr class="">
+										<td class="center">
+											<label>
+												<input type="checkbox" class="ace">
+												<span class="lbl"></span>
+											</label>
+										</td>
+
+										<td>
+											阿里内部的nodejs框架就是基于Koa
+										</td>
+										<td>$45</td>
+										<td class="hidden-480">3,330</td>
+										<td>Feb 12</td>
+
+										<td class="hidden-480">
+												<button class="btn btn-xs btn-success">
+													<i class="icon-ok bigger-120 success"></i>
+												</button>
+										</td>
+
+										<td>
+											<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
+												
+
+												<button class="btn btn-xs btn-info">
+													<i class="icon-edit bigger-120"></i>
+												</button>
+												&nbsp;
+												<button class="btn btn-xs btn-danger">
+													<i class="icon-trash bigger-120"></i>
+												</button>
+
+											</div>
+
+										</td>
+									</tr>
+
+									<tr class="">
+										<td class="center">
+											<label>
+												<input type="checkbox" class="ace">
+												<span class="lbl"></span>
+											</label>
+										</td>
+
+										<td>
+											Font Awesome,一套绝佳的图标字体库和CSS框架
+										</td>
+										<td>$45</td>
+										<td class="hidden-480">3,330</td>
+										<td>Feb 12</td>
+
+										<td class="hidden-480">
+												<button class="btn btn-xs btn-success">
+													<i class="icon-ok bigger-120"></i>
+												</button>
+										</td>
+
+										<td>
+											<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
+												
+
+												<button class="btn btn-xs btn-info">
+													<i class="icon-edit bigger-120"></i>
+												</button>
+												&nbsp;
+												<button class="btn btn-xs btn-danger">
+													<i class="icon-trash bigger-120"></i>
+												</button>
+
+											</div>
+
+										</td>
+									</tr>
+
+
+									<tr class="">
+										<td class="center">
+											<label>
+												<input type="checkbox" class="ace">
+												<span class="lbl"></span>
+											</label>
+										</td>
+
+										<td>
+											Koa是Express原班人马打造，号称下一代web框架
+										</td>
+										<td>$45</td>
+										<td class="hidden-480">3,330</td>
+										<td>Feb 12</td>
+
+										<td class="hidden-480">
+												<button class="btn btn-xs btn-success">
+													<i class="icon-ok bigger-120"></i>
+												</button>
+										</td>
+
+										<td>
+											<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
+												
+
+												<button class="btn btn-xs btn-info">
+													<i class="icon-edit bigger-120"></i>
+												</button>
+												&nbsp;
+												<button class="btn btn-xs btn-danger">
+													<i class="icon-trash bigger-120"></i>
+												</button>
+
+											</div>
+
+										</td>
+									</tr>
+
+
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div><!-- /.main-content -->
+			
+			</div><!-- /.main-container-inner -->
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="icon-double-angle-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"script>");
+		</script>
+		<script src="assets/js/bootstrap.min.js"></script>
+	
+
+		<!-- ace scripts -->
+
+		<script src="assets/js/ace-elements.min.js"></script>
+		<script src="assets/js/ace.min.js"></script>
+
+
+		<script type="text/javascript">
+			jQuery(function($) {
+								
+				
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});
+			
+			
+				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+				function tooltip_placement(context, source) {
+					var $source = $(source);
+					var $parent = $source.closest('table')
+					var off1 = $parent.offset();
+					var w1 = $parent.width();
+			
+					var off2 = $source.offset();
+					var w2 = $source.width();
+			
+					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+					return 'left';
+				}
+			})
+		</script>
+	
+</body>
+</html>
+
