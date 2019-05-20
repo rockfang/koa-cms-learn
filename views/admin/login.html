@@ -7,12 +7,13 @@
 
 		<!-- basic styles -->
 
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+		<link href="{{__HOST__}}/admin/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="{{__HOST__}}/admin/css/font-awesome.min.css" />
 
 		<!-- fonts -->
-		<link rel="stylesheet" href="assets/css/ace.min.css" />
-		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="{{__HOST__}}/admin/css/ace.min.css" />
+		<link rel="stylesheet" href="{{__HOST__}}/admin/css/ace-rtl.min.css" />
+		<script src="{{__HOST__}}/admin/js/jquery-2.0.3.min.js"></script>
 		
 		<style type="text/css">
 			.login-layout{
@@ -54,26 +55,26 @@
 
 											<div class="space-6"></div>
 
-											<form>
+											<form method="post" action="{{__HOST__}}/admin/login/doLogin" id="loginForm">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="用户名" />
+															<input type="text" id="username" name="username" class="form-control" placeholder="用户名" />
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" />
+															<input type="password" id="password" name="password" class="form-control" placeholder="密码" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="验证吗" style="width:200px;float:left;" />
-															<img style="float:right;" src="https://www.itying.com/koa/admin_express.php?m=Public&a=verify&rand=1521453067" alt="">
+															<input type="text" name="code" id="code" class="form-control" placeholder="验证码" style="width:200px;float:left;" />
+															<img id="code-btn" style="float:right;" src="{{__HOST__}}/admin/login/getCode" alt="">
 														</span>
 													</label>
 
@@ -85,7 +86,7 @@
 															<span class="lbl"> Remember Me</span>
 														</label>
 
-														<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+														<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="icon-key"></i>
 															登录
 														</button>
@@ -112,6 +113,35 @@
 
 		<!-- basic scripts -->
 
+		<script>
+			$(function () {
+				//验证码实时点击切换
+				$('#code-btn').click(function () {
+					$(this).attr('src','{{__HOST__}}/admin/login/getCode?ts=' + Math.random()*1000);
+				});
+				//前端本地校验表单中数据
+				$('#loginForm').submit(function () {
+					if ($('#username').val().length == 0) {
+						alert("请输入用户名");
+						return false;
+					} else if ($('#password').val().length == 0) {
+						alert("请输入密码");
+						return false;
+					} else if ($('#code').val().length == 0) {
+						alert("请输入验证码");
+						return false;
+					}
+				});
+				
+			});
+		</script>
+
+		<style>
+			#code-btn {
+				cursor: pointer;
+				position: relative;
+			}
+		</style>
 	
 </body>
 </html>
