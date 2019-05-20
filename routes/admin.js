@@ -3,6 +3,7 @@ const router = require('koa-router')();
 const index = require('./admin/index');
 const user = require('./admin/user');
 const manager = require('./admin/manager');
+const articlecate = require('./admin/articlecate');
 const login = require('./admin/login');
 const md5 = require('md5');
 const url = require('url');
@@ -38,6 +39,7 @@ router.get('/',async (ctx,next) => {
 router.use(index);
 router.use('/user',user);
 router.use('/manager',manager);
+router.use('/articlecate',articlecate);
 router.use('/login',login);
 
 //pathname 可用于通过路由中的类别选中不同的slide条目  /admin/login/getCode
