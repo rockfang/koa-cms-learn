@@ -2,54 +2,56 @@ const router = require('koa-router')();
 const Db = require('../../model/Db');
 const Tool = require('../../model/OperationTools');
 router.get('/',async (ctx,next) => {
-    //获取数据并渲染
     let result = await Db.find('articlecate',{});
-    console.log(result);
     //数据处理
-    await ctx.render('admin/articlecate//index.html',{managers: result});
+    let articleData = await Tool.processArticleData(result);
+    await ctx.render('admin/articlecate//index.html',{articleData: articleData});
 });
 router.get('/add',async (ctx,next) => {
-    await ctx.render('admin/manager/add.html');
+
+    let firstResult = await Db.find('articlecate',{'pid':'0'});
+    await ctx.render('admin/articlecate/add.html',{firstList: firstResult});
 });
 
 router.post('/doAdd',async (ctx) => {
-    let username = ctx.request.body.username;
-    let password = ctx.request.body.password;
-    let rpassword = ctx.request.body.rpassword;
+    let title = ctx.request.body.title;
+    let pid = ctx.request.body.pid;
+    let keywords = ctx.request.body.keywords;
+    let state = ctx.request.body.state;
+    let description = ctx.request.body.description;
+    console.log(ctx.request.body);
 
     //表单提交的数据
-    if(!/^\w{4,15}/.test(username)) {
+    if(!/^\w{1,15}/.test(title)) {
         await ctx.render("admin/error.html",{
-            message:'用户名须为4-20位',
-            redirect: ctx.state.__HOST__+'/admin/manager/add'
+            message:'用户名须为1-15位',
+            redirect: ctx.state.__HOST__+'/admin/articlecate/add'
         });
-    } else if(password!=rpassword){
+    } else if(!/^\w{1,10}/.test(keywords)){
         await ctx.render('admin/error',{
-            message:'密码和确认密码不一致',
-            redirect:ctx.state.__HOST__+'/admin/manager/add'
-        })
-    } else if (password.length < 6) {
-        await ctx.render('admin/error',{
-            message:'密码长度小于6位',
-            redirect: ctx.state.__HOST__+'/admin/manager/add'
+            message:'关键字须为1-10位',
+            redirect:ctx.state.__HOST__+'/admin/articlecate/add'
         })
     } else {
-        let findResult = await Db.find('admin',{username: username});
+        //同一层级下分类名不能相同
+        let findResult = await Db.find('articlecate',{title: title,pid:pid});
         if(findResult.length == 0) {
-            let insertResult = await Db.add('admin',{username:username,password:Tool.md5(password),state:0,last_time: ''});
+
+            let insertResult = await Db.add('articlecate',{title:title,pid:pid,keywords:keywords,state: state,description:description,add_time: new Date()});
             if (insertResult.result.ok) {
-                ctx.redirect(ctx.state.__HOST__+'/admin/manager');
+                ctx.redirect(ctx.state.__HOST__+'/admin/articlecate');
             } else {
                 await ctx.render('admin/error',{
                     message:'服务器忙，请稍后再试',
-                    redirect: ctx.state.__HOST__+'/admin/manager/add'
+                    redirect: ctx.state.__HOST__+'/admin/articlecate/add'
                 })
             }
 
         } else {
+
             await ctx.render('admin/error',{
-                message:'该用户名已存在',
-                redirect: ctx.state.__HOST__+'/admin/manager/add'
+                message:'该分类名已存在',
+                redirect: ctx.state.__HOST__+'/admin/articlecate/add'
             })
         }
     }
@@ -59,43 +61,32 @@ router.get('/delete',async (ctx,next) => {
     ctx.body = "我是admin下manager delete"
 });
 router.get('/edit',async (ctx,next) => {
-    // console.log(ctx.query.id);
+    console.log(ctx.query.id);
     //查询这条数据，获取用户信息用于展示
-    let result = await Db.find('admin',{"_id":Db.getObjectId(ctx.query.id)});
-    await ctx.render('admin/manager/edit',{userinfo: result[0]});
+    let firstResult = await Db.find('articlecate',{'pid':'0'});
+    let result = await Db.find('articlecate',{"_id":Db.getObjectId(ctx.query.id)});
+    await ctx.render('admin/articlecate/edit',{itemInfo: result[0],firstList:firstResult});
 });
 
 router.post('/doEdit',async (ctx) => {
+    //更新这条数据
     console.log(ctx.request.body);
-    let password = ctx.request.body.password;
-    let rpassword = ctx.request.body.rpassword;
-    let _id = ctx.request.body._id;
+    let id = ctx.request.body.id;
+    let title = ctx.request.body.title;
+    let pid = ctx.request.body.pid;
+    let keywords = ctx.request.body.keywords;
+    let state = ctx.request.body.state;
+    let description = ctx.request.body.description;
 
-    //表单提交的数据
-    if(password!=rpassword){
-        await ctx.render('admin/error',{
-            message:'密码和确认密码不一致',
-            redirect:ctx.state.__HOST__+'/admin/manager/edit'
-        })
-    } else if (password.length < 6) {
-        await ctx.render('admin/error',{
-            message:'密码长度小于6位',
-            redirect: ctx.state.__HOST__+'/admin/manager/edit'
-        })
+    let updateResult = await Db.update('articlecate',{'_id':Db.getObjectId(id)},{title:title,pid:pid,keywords:keywords,state:state,description:description});
+    if(updateResult.result.ok) {
+        ctx.redirect(ctx.state.__HOST__+'/admin/articlecate');
     } else {
-        let updateResult = await Db.update('admin',{'_id': _id},{password: password});
-        console.log(updateResult);
-        if (updateResult.result.ok) {
-            ctx.redirect(ctx.state.__HOST__+'/admin/manager');
-        } else {
-            await ctx.render('admin/error',{
-                message:'服务器忙，请稍后再试',
-                redirect: ctx.state.__HOST__+'/admin/manager/edit'
-            })
-        }
-
+        await ctx.render('admin/error',{
+            message:'服务器忙，请稍后再试',
+            redirect: ctx.state.__HOST__+'/admin/articlecate/add'
+        })
     }
-
 });
 
 module.exports = router.routes();

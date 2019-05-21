@@ -62,7 +62,7 @@
 								<thead>
 									<tr>
 
-										<th class="">分类名称</th>
+										<th class="left">分类名称</th>
 
 										<th class="center">状态</th>
 
@@ -71,25 +71,27 @@
 								</thead>
 
 								<tbody>
-								{{each managers}}
+								{{each articleData}}
+
+								<!--一级目录-->
 								<tr class="">
 
 										<td>
-											{{$value.username}}
+											{{$value.title}}
 										</td>
 
-										<td class="hidden-480">
+										<td class="hidden-480 center">
 											{{if $value.state == 0}}
-											<img src="{{__HOST__}}/admin/images/yes.gif" alt="" onclick="app.toggle(this,'admin','state','{{@$value._id}}')">
+											<img src="{{__HOST__}}/admin/images/yes.gif" alt="" onclick="app.toggle(this,'articlecate','state','{{@$value._id}}')">
 											{{else}}
-											<img src="{{__HOST__}}/admin/images/no.gif" alt="" onclick="app.toggle(this,'admin','state','{{@$value._id}}')">
+											<img src="{{__HOST__}}/admin/images/no.gif" alt="" onclick="app.toggle(this,'articlecate','state','{{@$value._id}}')">
 											{{/if}}
 										</td>
 
 										<td>
 											<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
 
-												<a href="{{__HOST__}}/admin/manager/edit?id={{@$value._id}}">
+												<a href="{{__HOST__}}/admin/articlecate/edit?id={{@$value._id}}">
 													<button class="btn btn-xs btn-info">
 														<i class="icon-edit bigger-120"></i>
 													</button>
@@ -105,6 +107,43 @@
 
 										</td>
 									</tr>
+
+								<!--二级目录-->
+								{{each $value.list}}
+								<tr class="">
+
+									<td>
+										&nbsp&nbsp&nbsp&nbsp&nbsp{{$value.keywords}}
+									</td>
+
+									<td class="hidden-480 center">
+										{{if $value.state == 0}}
+										<img src="{{__HOST__}}/admin/images/yes.gif" alt="" onclick="app.toggle(this,'articlecate','state','{{@$value._id}}')">
+										{{else}}
+										<img src="{{__HOST__}}/admin/images/no.gif" alt="" onclick="app.toggle(this,'articlecate','state','{{@$value._id}}')">
+										{{/if}}
+									</td>
+
+									<td>
+										<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
+
+											<a href="{{__HOST__}}/admin/articlecate/edit?id={{@$value._id}}">
+												<button class="btn btn-xs btn-info">
+													<i class="icon-edit bigger-120"></i>
+												</button>
+											</a>
+											&nbsp;
+											<a href="">
+												<button class="btn btn-xs btn-danger">
+													<i class="icon-trash bigger-120"></i>
+												</button>
+											</a>
+
+										</div>
+
+									</td>
+								</tr>
+								{{/each}}
 								{{/each}}
 								</tbody>
 							</table>
