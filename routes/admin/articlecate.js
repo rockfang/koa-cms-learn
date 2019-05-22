@@ -19,7 +19,6 @@ router.post('/doAdd',async (ctx) => {
     let keywords = ctx.request.body.keywords;
     let state = ctx.request.body.state;
     let description = ctx.request.body.description;
-    console.log(ctx.request.body);
 
     //表单提交的数据
     if(!/^\w{1,15}/.test(title)) {
@@ -61,7 +60,6 @@ router.get('/delete',async (ctx,next) => {
     ctx.body = "我是admin下manager delete"
 });
 router.get('/edit',async (ctx,next) => {
-    console.log(ctx.query.id);
     //查询这条数据，获取用户信息用于展示
     let firstResult = await Db.find('articlecate',{'pid':'0'});
     let result = await Db.find('articlecate',{"_id":Db.getObjectId(ctx.query.id)});
@@ -70,7 +68,6 @@ router.get('/edit',async (ctx,next) => {
 
 router.post('/doEdit',async (ctx) => {
     //更新这条数据
-    console.log(ctx.request.body);
     let id = ctx.request.body.id;
     let title = ctx.request.body.title;
     let pid = ctx.request.body.pid;

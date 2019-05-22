@@ -25,5 +25,16 @@ let app = {
                   }
               }
           })
+      },
+
+      confirmDelete: function () {
+          $('.delete').click(function () {
+              let flag = confirm('确定要删除吗');
+              return flag;
+          });
       }
 };
+
+$(function () {
+    app.confirmDelete();
+});

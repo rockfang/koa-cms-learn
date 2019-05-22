@@ -50,19 +50,53 @@ class Db {
         });
     }
 
-    find(collectionName,json) {
+    //统计数量的方法
+    count(collectionName,json){
+
+        return new  Promise((resolve,reject)=> {
+            this.connect().then((db)=> {
+
+                var result = db.collection(collectionName).countDocuments(json);
+                result.then(function (count) {
+
+                        resolve(count);
+                    }
+                )
+            })
+        })
+
+    }
+
+    //查询第page页的数据，每页数据大小为pageSize. 页数： pagenumber = Math.ceil(count/pageSize)
+    // db.article.find({},{title:1}).skip((page-1)*pageSize).limit(pageSize)
+    find(collectionName,json,fieldJson,pageJson) {
         return new Promise((resolve,reject) => {
             this.connect().then((client) => {
-                let col = client.collection(collectionName);
-                let result= col.find(json);
-                result.toArray(function(err,docs){
 
-                    if(err){
-                        reject(err);
-                        return;
+                try {
+                    let col = client.collection(collectionName);
+                    let result = "";
+                    if(arguments.length == 2) {
+                        result= col.find(json);
+                    } else if(arguments.length == 3) {
+                        result= col.find(json,fieldJson);
+                    } else if(arguments.length == 4) {
+                        let skipnumber = (pageJson.page - 1) * pageJson.pageSize;
+                        result= col.find(json,fieldJson).skip(skipnumber).limit(pageJson.pageSize);
+                    } else {
+                        reject('参数异常');
                     }
-                    resolve(docs);
-                })
+                    result.toArray(function(err,docs){
+
+                        if(err){
+                            reject(err);
+                            return;
+                        }
+                        resolve(docs);
+                    })
+                } catch (e) {
+                    reject(e);
+                }
             });
         });
     }
