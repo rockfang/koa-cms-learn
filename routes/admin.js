@@ -8,6 +8,8 @@ const article = require('./admin/article');
 const login = require('./admin/login');
 const md5 = require('md5');
 const url = require('url');
+const ueditor = require('koa2-ueditor')
+
 //配置中间件
 router.use(async (ctx,next) => {
 
@@ -43,6 +45,13 @@ router.use('/manager',manager);
 router.use('/articlecate',articlecate);
 router.use('/article',article);
 router.use('/login',login);
+
+//注意上传图片的路由   ueditor.config.js配置图片post的地址
+router.all('/editorUpload', ueditor(['public', {
+    "imageAllowFiles": [".png", ".jpg", ".jpeg"],
+    "imagePathFormat": "/upload/ueditor/image/{yyyy}{mm}{dd}/{filename}"  // 保存为原文件名
+}]));
+
 
 //pathname 可用于通过路由中的类别选中不同的slide条目  /admin/login/getCode
 function getItemName(pathname) {
