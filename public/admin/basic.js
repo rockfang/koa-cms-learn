@@ -10,29 +10,37 @@ let app = {
      * @param attr 参数，如当前状态
      * @param id   当前用户id
      */
-      toggle: function (el,collectionName,attr,id) {
-          $.get('/admin/changeState',{
-              collectionName: collectionName,
-              attr: attr,
-              id: id
-          },function (data) {
-              console.log('changeState接口请求结果：' + JSON.stringify(data));
-              if(data.success) {
-                  if(el.src.indexOf('yes') != -1) {
-                      el.src = '/admin/images/no.gif';
-                  } else {
-                      el.src = '/admin/images/yes.gif';
-                  }
-              }
-          })
-      },
+    toggle: function (el, collectionName, attr, id) {
+        $.get('/admin/changeState', {
+            collectionName: collectionName,
+            attr: attr,
+            id: id
+        }, function (data) {
+            if (data.success) {
+                if (el.src.indexOf('yes') != -1) {
+                    el.src = '/admin/images/no.gif';
+                } else {
+                    el.src = '/admin/images/yes.gif';
+                }
+            }
+        })
+    },
 
-      confirmDelete: function () {
-          $('.delete').click(function () {
-              let flag = confirm('确定要删除吗');
-              return flag;
-          });
-      }
+    confirmDelete: function () {
+        $('.delete').click(function () {
+            let flag = confirm('确定要删除吗');
+            return flag;
+        });
+    },
+
+    changeSort: function (el,collectionName,id) {
+        $.get('/admin/changeSort', {
+            collectionName: collectionName,
+            sort: el.value,
+            id: id
+        }, function (data) {
+        })
+    }
 };
 
 $(function () {

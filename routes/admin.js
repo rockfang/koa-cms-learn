@@ -19,7 +19,8 @@ router.use(async (ctx,next) => {
     ctx.state.__HOST__ = "http://" + ctx.request.header.host;//配置全局host用于模板引擎渲染
     ctx.state.G = {
         userinfo: ctx.session.userinfo,//保存登录信息用于显示
-        itemArr: getItemName(pathname) //用于侧边栏条目及子条目选中
+        itemArr: getItemName(pathname), //用于侧边栏条目及子条目选中
+        prevPage:ctx.request.headers['referer']   /*上一页的地址 存全局，有点面向切面的意思*/
     };
     //设置权限
     if(ctx.session.userinfo) {

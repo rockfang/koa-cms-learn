@@ -68,8 +68,8 @@ class Db {
     }
 
     //查询第page页的数据，每页数据大小为pageSize. 页数： pagenumber = Math.ceil(count/pageSize)
-    // db.article.find({},{title:1}).skip((page-1)*pageSize).limit(pageSize)
-    find(collectionName,json,fieldJson,pageJson) {
+    // db.article.find({},{title:1}).skip((page-1)*pageSize).limit(pageSize).sort({'add_time':-1})
+    find(collectionName,json,fieldJson,psJson) {
         return new Promise((resolve,reject) => {
             this.connect().then((client) => {
 
@@ -81,8 +81,12 @@ class Db {
                     } else if(arguments.length == 3) {
                         result= col.find(json,fieldJson);
                     } else if(arguments.length == 4) {
-                        let skipnumber = (pageJson.page - 1) * pageJson.pageSize;
-                        result= col.find(json,fieldJson).skip(skipnumber).limit(pageJson.pageSize);
+                        let skipnumber = (psJson.page - 1) * psJson.pageSize;
+                        if(psJson.sort) {
+                            result= col.find(json,fieldJson).skip(skipnumber).limit(psJson.pageSize).sort(psJson.sort);
+                        } else {
+                            result= col.find(json,fieldJson).skip(skipnumber).limit(psJson.pageSize);
+                        }
                     } else {
                         reject('参数异常');
                     }

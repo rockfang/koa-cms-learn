@@ -21,7 +21,15 @@ router.get('/',async (ctx,next) => {
     //获取页数用于分页设置
     let count= await Db.count('article',{});
     //获取数据并渲染
-    let result = await Db.find('article',{},{title:1},{page:currentPage,pageSize:PAGE_SIZE});
+    let result = await Db.find('article',{},
+            {title:1},
+            {   page:currentPage,
+                pageSize:PAGE_SIZE,
+                sort: {
+                    'add_time': -1
+                }
+            }
+        );
 
     await ctx.render('admin/article/index.html',
         {   newsList: result,
@@ -49,7 +57,48 @@ router.get('/edit',async (ctx,next) => {
         currentCate: currentCate[0],
         article: article[0],
         catelist:Tool.processArticleData(catelist),//catelist是组装好的数据列表
+        prevPage:ctx.state.G.prevPage //传到前端，再通过表单提交过来doEdit用
     });
+});
+//post接收数据
+router.post('/doEdit', upload.single('img_url'),async (ctx)=>{
+
+    let prevPage=ctx.req.body.prevPage || '';  /*上一页的地址*/
+    let id=ctx.req.body._id;
+    let pid=ctx.req.body.pid;
+    let catename=ctx.req.body.catename.trim();
+    let title=ctx.req.body.title.trim();
+    let author=ctx.req.body.author.trim();
+    let state=ctx.req.body.state;
+    let is_best=ctx.req.body.is_best;
+    let is_hot=ctx.req.body.is_hot;
+    let is_new=ctx.req.body.is_new;
+    let keywords=ctx.req.body.keywords;
+    let description=ctx.req.body.description || '';
+    let content=ctx.req.body.content ||'';
+    let img_url=ctx.req.file? processImgURl(ctx.req.file.path) :'';//处理url中public目录public\upload\20180331\1522489192188.png
+    let add_time = Tool.getCurrentTime();
+
+    //属性的简写
+    //注意是否修改了图片          var           let块作用域
+    if(img_url){
+        var json={
+            pid,catename,title,author,state,is_best,is_hot,is_new,keywords,description,content,img_url,add_time
+        }
+    }else{
+        var json={
+            pid,catename,title,author,state,is_best,is_hot,is_new,keywords,description,content,add_time
+        }
+    }
+
+    Db.update('article',{"_id":Db.getObjectId(id)},json);
+    //跳转
+    if(prevPage){
+        ctx.redirect(prevPage);
+    }else{
+        ctx.redirect(ctx.state.__HOST__+'/admin/article');
+    }
+
 });
 //post接收数据
 router.post('/doAdd', upload.single('img_url'),async (ctx)=>{
@@ -67,10 +116,11 @@ router.post('/doAdd', upload.single('img_url'),async (ctx)=>{
     let description=ctx.req.body.description || '';
     let content=ctx.req.body.content ||'';
     let img_url=ctx.req.file? processImgURl(ctx.req.file.path) :'';//处理url中public目录public\upload\20180331\1522489192188.png
+    let add_time = Tool.getCurrentTime();
 
     //属性的简写
     let json={
-        pid,catename,title,author,state,is_best,is_hot,is_new,keywords,description,content,img_url
+        pid,catename,title,author,state,is_best,is_hot,is_new,keywords,description,content,img_url,add_time
     };
 
     let result=await Db.add('article',json);

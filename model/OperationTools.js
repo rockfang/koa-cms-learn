@@ -24,6 +24,9 @@ const Tool = {
             }
         }
         return resultArr;
+    },
+    getCurrentTime: function () {
+      return new Date();
     }
 };
 

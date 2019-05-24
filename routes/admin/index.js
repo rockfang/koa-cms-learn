@@ -26,7 +26,6 @@ router.get('/changeState',async (ctx) => {
             };
         }
         let updateResult = await Db.update(collectionName,{_id: Db.getObjectId(id)},destAttr);
-        console.log("updateResult：" + updateResult);
         if(updateResult) {
             ctx.body = {success: true,message: "更新成功"};
         } else {
@@ -36,6 +35,21 @@ router.get('/changeState',async (ctx) => {
     } else {
         ctx.body = {success: false,message: "参数错误"};
     }
+});
+
+
+router.get('/changeSort',async (ctx) => {
+    let collectionName = ctx.query.collectionName;
+    let sort = ctx.query.sort;//要改变的参数,对应数据库表中一个字段
+    let id = ctx.query.id;
+
+    let updateResult = await Db.update(collectionName,{_id: Db.getObjectId(id)},{sort:sort});
+    if(updateResult) {
+        ctx.body = {success: true,message: "更新成功"};
+    } else {
+        ctx.body = {success: false,message: "更新失败"};
+    }
+
 });
 
 router.get('/remove',async (ctx) => {
