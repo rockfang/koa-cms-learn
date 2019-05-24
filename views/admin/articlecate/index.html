@@ -117,7 +117,7 @@
 									</td>
 
 									<td class="hidden-480 center">
-										{{if $value.state == 0}}
+										{{if $value.state == "1"}}
 										<img src="{{__HOST__}}/admin/images/yes.gif" alt="" onclick="app.toggle(this,'articlecate','state','{{@$value._id}}')">
 										{{else}}
 										<img src="{{__HOST__}}/admin/images/no.gif" alt="" onclick="app.toggle(this,'articlecate','state','{{@$value._id}}')">

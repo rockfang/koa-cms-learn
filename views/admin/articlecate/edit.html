@@ -99,9 +99,9 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label no-padding-right">状态：</label>
 									<div class="col-sm-10">
-										<label for="status1">已审核：</label><input type="radio" name="state" {{if itemInfo.state==0}} checked{{/if}}  id="status1" value=1  />
+										<label>已审核：</label><input type="radio" name="state" {{if itemInfo.state=="1"}} checked{{/if}}  id="state1" value="1"  />
 										&nbsp;
-										<label for="status2">未审核:</label><input type="radio" name="state" id="status2" {{if itemInfo.state==1}} checked{{/if}} value=0 />
+										<label>未审核:</label><input type="radio" name="state" id="state2" {{if itemInfo.state=="0"}} checked{{/if}} value="0" />
 									</div>
 								</div>
 

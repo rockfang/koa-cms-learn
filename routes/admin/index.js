@@ -18,11 +18,11 @@ router.get('/changeState',async (ctx) => {
         let destAttr = {};
         if (serverAttr == 0) {
             destAttr = { /*es6 属性名表达式*/
-                [attr]: 1
+                [attr]: "1"
             };
         } else {
             destAttr = { /*es6 属性名表达式*/
-                [attr]: 0
+                [attr]: "0"
             };
         }
         let updateResult = await Db.update(collectionName,{_id: Db.getObjectId(id)},destAttr);
@@ -60,7 +60,7 @@ router.get('/remove',async (ctx) => {
     } catch (e) {
         ctx.render('admin/error',{redirect: fromPage,message: e});
     }
-   
+
 });
 
 

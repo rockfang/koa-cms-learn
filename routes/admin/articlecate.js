@@ -19,16 +19,16 @@ router.post('/doAdd',async (ctx) => {
     let keywords = ctx.request.body.keywords;
     let state = ctx.request.body.state;
     let description = ctx.request.body.description;
-
+    console.log(title);
     //表单提交的数据
-    if(!/^\w{1,15}/.test(title)) {
+    if(title.length == 0) {
         await ctx.render("admin/error.html",{
-            message:'用户名须为1-15位',
+            message:'分类名不能为空',
             redirect: ctx.state.__HOST__+'/admin/articlecate/add'
         });
-    } else if(!/^\w{1,10}/.test(keywords)){
+    } else if(keywords.length == 0){
         await ctx.render('admin/error',{
-            message:'关键字须为1-10位',
+            message:'关键字不能为空',
             redirect:ctx.state.__HOST__+'/admin/articlecate/add'
         })
     } else {

@@ -98,7 +98,7 @@
 										</td>
 
 										<td>
-											{{if $value.is_host==1}}
+											{{if $value.is_host=="1"}}
 											<img src="{{__ROOT__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','is_host','{{@$value._id}}')" />
 											{{else}}
 											<img src="{{__ROOT__}}/admin/images/no.gif" onclick="app.toggle(this,'article','is_host','{{@$value._id}}')" />
@@ -106,7 +106,7 @@
 										</td>
 
 										<td>
-											{{if $value.is_best==1}}
+											{{if $value.is_best=="1"}}
 											<img src="{{__ROOT__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','is_best','{{@$value._id}}')" />
 											{{else}}
 											<img src="{{__ROOT__}}/admin/images/no.gif" onclick="app.toggle(this,'article','is_best','{{@$value._id}}')" />
@@ -114,10 +114,10 @@
 										</td>
 
 										<td>
-											{{if $value.status==1}}
-											<img src="{{__ROOT__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','status','{{@$value._id}}')" />
+											{{if $value.state=="1"}}
+											<img src="{{__ROOT__}}/admin/images/yes.gif" onclick="app.toggle(this,'article','state','{{@$value._id}}')" />
 											{{else}}
-											<img src="{{__ROOT__}}/admin/images/no.gif" onclick="app.toggle(this,'article','status','{{@$value._id}}')" />
+											<img src="{{__ROOT__}}/admin/images/no.gif" onclick="app.toggle(this,'article','state','{{@$value._id}}')" />
 											{{/if}}
 										</td>
 										<td>
@@ -175,18 +175,6 @@
 				}
 			}
 		});
-		// $('#page').jqPaginator({
-
-	// 		totalPages: {{totalPages}},
-	// 		visiblePages: 8, currentPage: {{page}},
-	// 		onPageChange: function (num, type) {
-	// 			console.log(num, type);
-	// //
-	// 			if(type=='change'){
-	// 				location.href="{{__HOST__}}/admin/article?page="+num;
-	// 			}
-	// 		}
-	// 	});
 
 	</script>
 
