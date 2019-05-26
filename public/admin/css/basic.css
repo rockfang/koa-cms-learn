@@ -6,3 +6,12 @@
     width: 40px;
     text-align: center;
 }
+
+.pagination{
+
+    float: right;
+}
+
+.img{
+    height:100px;
+}

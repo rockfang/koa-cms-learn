@@ -1,7 +1,7 @@
 const router = require('koa-router')();
 //引入子路由
 const index = require('./admin/index');
-const user = require('./admin/user');
+const focus = require('./admin/focus');
 const manager = require('./admin/manager');
 const articlecate = require('./admin/articlecate');
 const article = require('./admin/article');
@@ -41,11 +41,12 @@ router.get('/',async (ctx,next) => {
 });
 
 router.use(index);
-router.use('/user',user);
 router.use('/manager',manager);
 router.use('/articlecate',articlecate);
 router.use('/article',article);
 router.use('/login',login);
+router.use('/focus',focus);
+
 
 //注意上传图片的路由   ueditor.config.js配置图片post的地址
 router.all('/editorUpload', ueditor(['public', {

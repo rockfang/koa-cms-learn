@@ -52,6 +52,7 @@ app.use(async (ctx,next) => {
     await next();
 });
 
+
 router.get('/', (ctx, next) => {
 
     console.log('这是直接访问域名走到的');
