@@ -12,7 +12,7 @@ router.get('/add',async (ctx,next) => {
 
 router.post('/doAdd',async (ctx) => {
     let username = ctx.request.body.username;
-    let password = ctx.request.body.password;
+    let password = ctx.request.body.password;``
     let rpassword = ctx.request.body.rpassword;
 
     //表单提交的数据
@@ -64,7 +64,6 @@ router.get('/edit',async (ctx,next) => {
 });
 
 router.post('/doEdit',async (ctx) => {
-    console.log(ctx.request.body);
     let password = ctx.request.body.password;
     let rpassword = ctx.request.body.rpassword;
     let _id = ctx.request.body._id;
@@ -82,7 +81,6 @@ router.post('/doEdit',async (ctx) => {
         })
     } else {
         let updateResult = await Db.update('admin',{'_id': _id},{password: password});
-        console.log(updateResult);
         if (updateResult.result.ok) {
             ctx.redirect(ctx.state.__HOST__+'/admin/manager');
         } else {

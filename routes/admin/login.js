@@ -38,7 +38,6 @@ router.get('/getCode',async (ctx,next) => {
 });
 
 router.post('/doLogin',async (ctx,next) => {
-    console.log(ctx.request.body);
     let username = ctx.request.body.username;
     let password = ctx.request.body.password;
     let code = ctx.request.body.code;
@@ -53,7 +52,6 @@ router.post('/doLogin',async (ctx,next) => {
     }
 
     let result = await Db.find('admin',{username: username,password:Tool.md5(password)});
-    console.log(result);
     if (result.length != 0) {
         //登录成功设置session
         ctx.session.userinfo = result[0];

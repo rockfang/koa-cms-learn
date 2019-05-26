@@ -2,20 +2,7 @@ const router = require('koa-router')();
 const Db = require('../../model/Db');
 const Tool = require('../../model/OperationTools');
 
-//配置文件上传插件multer
-const multer = require('koa-multer');
-let storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/upload');   /*配置图片上传的目录     注意：图片上传的目录必须存在*/
-    },
-    filename: function (req, file, cb) {   /*图片上传完成重命名*/
-        var fileFormat = (file.originalname).split(".");   /*获取后缀名  分割数组*/
-        cb(null,Date.now() + "." + fileFormat[fileFormat.length - 1]);
-    }
-});
-let upload = multer({ storage: storage });
-
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 3;
 router.get('/',async (ctx,next) => {
     let currentPage = ctx.query.page || 1;
     //获取页数用于分页设置
@@ -52,7 +39,6 @@ router.get('/edit',async (ctx,next) => {
     let catelist=await Db.find('articlecate',{});//分类列表
     let article=await Db.find('article',{'_id': Db.getObjectId(articleId)});//当前文章信息
     let currentCate=await Db.find('articlecate',{'_id': Db.getObjectId(article[0].pid)});//当前文章所在分类
-    console.log(article);
     await ctx.render('admin/article/edit',{
         currentCate: currentCate[0],
         article: article[0],
@@ -61,7 +47,7 @@ router.get('/edit',async (ctx,next) => {
     });
 });
 //post接收数据
-router.post('/doEdit', upload.single('img_url'),async (ctx)=>{
+router.post('/doEdit', Tool.multerUpload().single('img_url'),async (ctx)=>{
 
     let prevPage=ctx.req.body.prevPage || '';  /*上一页的地址*/
     let id=ctx.req.body._id;
@@ -101,7 +87,7 @@ router.post('/doEdit', upload.single('img_url'),async (ctx)=>{
 
 });
 //post接收数据
-router.post('/doAdd', upload.single('img_url'),async (ctx)=>{
+router.post('/doAdd', Tool.multerUpload().single('img_url'),async (ctx)=>{
 
     //往article表添加数据。1.查询是否有重复数据。2.添加。参数组装
     let pid=ctx.req.body.pid;

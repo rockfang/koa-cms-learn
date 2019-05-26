@@ -19,7 +19,6 @@ router.post('/doAdd',async (ctx) => {
     let keywords = ctx.request.body.keywords;
     let state = ctx.request.body.state;
     let description = ctx.request.body.description;
-    console.log(title);
     //表单提交的数据
     if(title.length == 0) {
         await ctx.render("admin/error.html",{
@@ -55,9 +54,6 @@ router.post('/doAdd',async (ctx) => {
         }
     }
 
-});
-router.get('/delete',async (ctx,next) => {
-    ctx.body = "我是admin下manager delete"
 });
 router.get('/edit',async (ctx,next) => {
     //查询这条数据，获取用户信息用于展示

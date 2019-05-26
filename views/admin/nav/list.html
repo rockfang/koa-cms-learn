@@ -49,11 +49,9 @@
 
 						<div class="page-header">
 							<h1>
-								管理员列表
+								导航列表
 							</h1>
 						</div><!-- /.page-header -->
-
-
 
 						<!--表格-->
 
@@ -62,12 +60,9 @@
 								<thead>
 									<tr>
 
-										<th class="center">管理员</th>
-
-										<th class="center">
-											<i class="icon-time bigger-110 hidden-480"></i>
-											最后登录时间
-										</th>
+										<th class="center">名称</th>
+										<th class="center">链接地址</th>
+										<th class="center">排序</th>
 										<th class="center">状态</th>
 
 										<th width="100px;" class="center">操作</th>
@@ -75,55 +70,68 @@
 								</thead>
 
 								<tbody>
-								{{each managers}}
-								<tr class="">
 
-										<td>
-											{{$value.username}}
-										</td>
+								{{each list}}
+									<tr class="">
 
 
 										<td>
-											{{if $value.last_time}}
-											{{$value.last_time | dateFormat}}
-											{{/if}}
+											{{$value.title}}
 										</td>
+
+										<td>
+											{{$value.url}}
+										</td>
+
+										<td>
+											<input type="text" value="{{$value.sort || 0}}" class="sort_input" onblur="app.changeSort(this,'nav','{{@$value._id}}')"/>
+										</td>
+
 
 										<td class="hidden-480">
-											{{if $value.state == 0}}
-											<img src="{{__HOST__}}/admin/images/yes.gif" alt="" onclick="app.toggle(this,'admin','state','{{@$value._id}}')">
+											{{if $value.state==1}}
+												<img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'nav','state','{{@$value._id}}')" />
 											{{else}}
-											<img src="{{__HOST__}}/admin/images/no.gif" alt="" onclick="app.toggle(this,'admin','state','{{@$value._id}}')">
+												<img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'nav','state','{{@$value._id}}')" />
 											{{/if}}
 										</td>
 
 										<td>
 											<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
 
-												<a href="{{__HOST__}}/admin/manager/edit?id={{@$value._id}}">
+
+												<a href="{{__HOST__}}/admin/nav/edit?id={{@$value._id}}">
+
 													<button class="btn btn-xs btn-info">
 														<i class="icon-edit bigger-120"></i>
 													</button>
 												</a>
-												&nbsp;
-												<a class="delete" href="{{__HOST__}}/admin/remove?id={{@$value._id}}&collectionName=admin">
+
+
+											  	<a class="delete" href="{{__HOST__}}/admin/remove?collectionName=nav&id={{@$value._id}}">
+
 													<button class="btn btn-xs btn-danger">
 														<i class="icon-trash bigger-120"></i>
 													</button>
+
 												</a>
 
 											</div>
 
 										</td>
 									</tr>
+
 								{{/each}}
+
 								</tbody>
 							</table>
+
+							<div id="page" class="pagination"></div>
 						</div>
 
 					</div>
 				</div><!-- /.main-content -->
-
+			
 			</div><!-- /.main-container-inner -->
 
 			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
@@ -132,8 +140,15 @@
 		</div><!-- /.main-container -->
 
 
-		{{include 'admin/public/footer.html'}}
 
+	{{include 'admin/public/footer.html'}}
+
+
+		<script>
+
+		</script>
+
+	
 </body>
 </html>
 

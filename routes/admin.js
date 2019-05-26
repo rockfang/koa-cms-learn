@@ -2,10 +2,14 @@ const router = require('koa-router')();
 //引入子路由
 const index = require('./admin/index');
 const focus = require('./admin/focus');
+const link = require('./admin/link');
+const nav = require('./admin/nav');
+const setting = require('./admin/setting');
 const manager = require('./admin/manager');
 const articlecate = require('./admin/articlecate');
 const article = require('./admin/article');
 const login = require('./admin/login');
+const user = require('./admin/user');
 const md5 = require('md5');
 const url = require('url');
 const ueditor = require('koa2-ueditor')
@@ -13,7 +17,6 @@ const ueditor = require('koa2-ueditor')
 //配置中间件
 router.use(async (ctx,next) => {
 
-    console.log(ctx.request.url);
     let pathname = url.parse(ctx.request.url).pathname;//获取/admin/login/getCode?ts=770.0280020629946中/admin/login/getCode
 
     ctx.state.__HOST__ = "http://" + ctx.request.header.host;//配置全局host用于模板引擎渲染
@@ -45,7 +48,11 @@ router.use('/manager',manager);
 router.use('/articlecate',articlecate);
 router.use('/article',article);
 router.use('/login',login);
+router.use('/user',user);
 router.use('/focus',focus);
+router.use('/link',link);
+router.use('/nav',nav);
+router.use('/setting',setting);
 
 
 //注意上传图片的路由   ueditor.config.js配置图片post的地址

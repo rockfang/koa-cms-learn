@@ -1,23 +1,28 @@
 const router = require('koa-router')();
 const Db = require('../../model/Db');
 const Tool = require('../../model/OperationTools');
+//配置上传图片
+
 router.get('/',async (ctx,next) => {
     //获取数据并渲染
     let page=ctx.query.page ||1;
     let pageSize=3;
-    let result= await Db.find('focus',{},{},{
+    let result= await Db.find('link',{},{},{
         page,
-        pageSize
+        pageSize,
+        sort: {
+            "add_time": -1
+        }
     });
-    let count= await  Db.count('focus',{});  /*总数量*/
-    await  ctx.render('admin/focus/list',{
+    let count= await  Db.count('link',{});  /*总数量*/
+    await  ctx.render('admin/link/list',{
         list:result,
         page:page,
-        totalPages:Math.ceil(count/pageSize)
+        totalPages:Math.ceil(count/pageSize) | 0
     });
 });
 router.get('/add',async (ctx)=>{
-    await  ctx.render('admin/focus/add');
+    await  ctx.render('admin/link/add');
 });
 router.post('/doAdd',Tool.multerUpload().single('pic'),async (ctx)=>{
 
@@ -34,20 +39,20 @@ router.post('/doAdd',Tool.multerUpload().single('pic'),async (ctx)=>{
     let add_time=Tool.getCurrentTime();
 
 
-    await Db.add('focus',{
+    await Db.add('link',{
         title,pic,url,sort,state,add_time
     });
     //跳转
-    ctx.redirect(ctx.state.__HOST__+'/admin/focus');
+    ctx.redirect(ctx.state.__HOST__+'/admin/link');
 });
 //编辑
 router.get('/edit',async (ctx)=>{
 
     let id = ctx.query.id;
 
-    let result=await Db.find('focus',{"_id":Db.getObjectId(id)});
+    let result=await Db.find('link',{"_id":Db.getObjectId(id)});
 
-    await ctx.render('admin/focus/edit',{
+    await ctx.render('admin/link/edit',{
         list:result[0],
         prevPage:ctx.state.G.prevPage
     });
@@ -86,14 +91,14 @@ router.post('/doEdit',Tool.multerUpload().single('pic'),async (ctx)=>{
         }
 
     }
-    await  Db.update('focus',{'_id':Db.getObjectId(id)},json);
+    await  Db.update('link',{'_id':Db.getObjectId(id)},json);
     if(prevPage){
         ctx.redirect(prevPage);
     }else{
         //跳转
-        ctx.redirect(ctx.state.__HOST__+'/admin/focus');
+        ctx.redirect(ctx.state.__HOST__+'/admin/link');
     }
 
-});
+})
 
 module.exports=router.routes();
